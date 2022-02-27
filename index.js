@@ -13,6 +13,10 @@ app.use(cors())
 
 app.use(express.json());
 
+app.get("/", (req, res) =>{
+    res.send("API is running");
+})
+
 app.use("/users", userRoute);
 app.use("/auth", authRoute);
 app.use("/products", productRoute);
