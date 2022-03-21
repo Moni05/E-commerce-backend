@@ -3,13 +3,15 @@ const jwt = require("jsonwebtoken");
 const verifyToken = (req, res, next) =>{
 
     const authToken = req.headers.token;
+    console.log(authToken);
     if(authToken){
 
         const token = authToken.split(" ")[1];
+        console.log(token);
 
         jwt.verify(token, process.env.SECRET_KEY, (err, user)=>{
             if(err){
-                res.status(403).send("Unauthorized Access!!!");
+                return res.status(403).send("Unauthorized Access!!!");
             }
             req.user = user;
             next();
@@ -17,7 +19,7 @@ const verifyToken = (req, res, next) =>{
 
     }
     else{
-        res.status(401).send("You're not authorized to access !!!")
+        return res.status(401).send("You're not authorized to access !!!")
     }
 };
 
